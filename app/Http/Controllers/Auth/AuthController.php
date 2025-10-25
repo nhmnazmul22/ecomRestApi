@@ -3,9 +3,60 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateRequest;
+use App\Services\AuthServices;
+use App\Traits\ApiResponse;
+use Exception;
 use Illuminate\Http\Request;
+use Throwable;
 
 class AuthController extends Controller
 {
-    //
+    public function __construct(protected AuthServices $service)
+    {
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        try {
+            $user = $this->service->register($request->validated());
+            return $this->success($user, "User Registration successful", 201);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ?? 500);
+        }
+    }
+
+    public function login(LoginRequest $request)
+    {
+        try {
+            $data = $request->validated();
+            $response = $this->service->login($data["email"], $data["password"]);
+            return $this->success($response, "Login Successful", 200);
+        } catch (Exception $e) {
+            // dd($e)->toArray();
+            return $this->error($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function profile(Request $request)
+    {
+        try {
+            $user = $this->service->getProfile();
+            return $this->success($user, "Profile fetch successful", 200);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function update(UpdateRequest $request)
+    {
+        try {
+            $user = $this->service->updateProfile( $request->validated());
+            return $this->success($user, "Profile update successful", 200);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode());
+        }
+    }
 }

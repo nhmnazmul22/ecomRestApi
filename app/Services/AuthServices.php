@@ -1,7 +1,10 @@
 <?php
 
+namespace App\Services;
+
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class AuthServices
@@ -12,7 +15,7 @@ class AuthServices
     {
         $exitsUser = $this->repository->findByEmail($data["email"]);
         if ($exitsUser) {
-            throw new Exception("User Already Exits");
+            throw new Exception("User Already Exits", 400);
         }
 
         $user = $this->repository->create($data);
@@ -24,7 +27,7 @@ class AuthServices
         $user = $this->repository->findByEmail($email);
         $isValidPassword = Hash::check($password, $user->password);
         if (!$user || !$isValidPassword) {
-            throw new Exception("Invalid credentials");
+            throw new Exception("Invalid credentials", 400);
         }
 
         $token = $user->createToken("auth_token")->plainTextToken;
@@ -41,13 +44,13 @@ class AuthServices
         return true;
     }
 
-    public function updateProfile(int $id, array $data)
+    public function updateProfile(array $data)
     {
-        return $this->repository->update($id, $data);
+        return $this->repository->update(auth()->id(), $data);
     }
 
-    public function getProfile(int $id)
+    public function getProfile()
     {
-        return $this->repository->find($id);
+        return $this->repository->find(auth()->id());
     }
 }
