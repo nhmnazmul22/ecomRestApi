@@ -15,4 +15,8 @@ class UserRepository extends BaseRepository
     {
         return $this->model->where("email", $email)->first();
     }
+
+    public function findByRole(string $role){
+       return $this->model->where("role", $role)->get();
+    }
 }

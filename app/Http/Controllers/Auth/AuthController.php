@@ -59,4 +59,23 @@ class AuthController extends Controller
             return $this->error($e->getMessage(), $e->getCode());
         }
     }
+
+    public function logout(Request $request){
+      try{
+         $this->service->logout(auth()->user());
+         return $this->success(null, "Logout successful", 200);
+      }catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function getUsersByRole(Request $request){
+      try{
+         $role = $request->query("role");
+         $users = $this->service->getUsersByRole($role);
+         return $this->success($users, "Users fetch successful", 200);
+      }catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode());
+        }
+    }
 }

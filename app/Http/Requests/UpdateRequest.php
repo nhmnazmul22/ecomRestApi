@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -19,13 +20,18 @@ class UpdateRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     * 
+     *
      */
     public function rules(): array
     {
         return [
             "name" => "sometimes|string|max:255",
-            "email" => "sometimes|string|email|unique:user,email",
+            "email"=> [
+               "sometimes",
+               "string",
+               "email",
+               Rule::unique("users")->ignore(auth()->id()),
+            ],
             "current_password" => "required_with:password|string",
             "password" => "sometimes|string|min:8|max:16|confirmed"
         ];
