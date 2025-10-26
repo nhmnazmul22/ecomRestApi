@@ -58,12 +58,7 @@ class AuthServices
 
    public function getUsersByRole(string $role)
    {
-      $user = auth()->user();
-
-      if ($user->role !== "admin") {
-         throw new Exception("Unauthorized", 403);
-      }
-
+      // $user = auth()->user();
       return $this->repository->findByRole($role);
 
    }
