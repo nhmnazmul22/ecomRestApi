@@ -12,8 +12,8 @@ return new class extends Migration {
    {
       Schema::create('product_tag', function (Blueprint $table) {
          $table->primary(["product_id", "tag_id"]);
-         $table->foreignUuid("product_id")->constrained("products", "id");
-         $table->foreignUuid("tag_id")->constrained("tags", "id");
+         $table->foreignId("product_id")->constrained("products", "id");
+         $table->foreignId("tag_id")->constrained("tags", "id");
       });
    }
 

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     */
    public function run(): void
    {
-      // User::factory(5)->create();
+      // User::factory(500)->create();
 
       //   User::factory()->create([
       //       'name' => 'Test Admin',
@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
       //       "role" => "admin"
       //   ]);
 
-      // Category::factory(10)->create();
+      Category::factory(10)->create();
 
       // $this->call(TagSeeder::class);
 
-      $this->call(ProductSeeder::class);
+      // $this->call(ProductSeeder::class);
    }
 }

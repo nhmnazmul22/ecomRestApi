@@ -11,7 +11,7 @@ return new class extends Migration {
    public function up(): void
    {
       Schema::create('products', function (Blueprint $table) {
-         $table->uuid("id")->primary();
+         $table->id();
          $table->string("image_url")->nullable();
          $table->string('title');
          $table->string("sku")->unique();
@@ -20,8 +20,8 @@ return new class extends Migration {
          $table->decimal('price', 10, 2);
          $table->integer("stock")->default(0);
          $table->enum("status", ["in_stock", "out_of_stock"])->default("out_of_stock");
-         $table->foreignUuid("category_id")->constrained("categories", "id");
-         $table->foreignUuid('created_by')
+         $table->foreignId("category_id")->constrained("categories", "id");
+         $table->foreignId('created_by')
             ->constrained('users', 'id');
          $table->timestamps();
       });

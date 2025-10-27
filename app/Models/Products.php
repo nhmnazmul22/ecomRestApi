@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Products extends Model
 {
    /** @use HasFactory<\Database\Factories\ProductsFactory> */
-   use HasFactory, Notifiable, HasUuids;
+   use HasFactory, Notifiable;
 
    /**
     * The attributes that are mass assignable.

@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 class Tag extends Model
 {
    /** @use HasFactory<\Database\Factories\TagFactory> */
-   use HasFactory, Notifiable, HasUuids;
+   use HasFactory, Notifiable;
 
    /**
     * The attributes that are mass assignable.
