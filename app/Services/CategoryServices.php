@@ -54,6 +54,10 @@ class CategoryServices
 
    public function delete(string $id)
    {
+      $category = $this->repository->findById($id);
+      if (!$category) {
+         throw new Exception("Category not found", 404);
+      }
       return $this->repository->delete($id);
    }
 

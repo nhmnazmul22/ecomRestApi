@@ -67,8 +67,8 @@ class CategoryController extends Controller
    public function destroy(string $id)
    {
       try {
-         $category = $this->services->delete($id);
-         return $this->success($category, "Categories delete successful", 200);
+         $this->services->delete($id);
+         return $this->success(null, "Categories delete successful", 200);
       } catch (Exception $e) {
          return $this->error($e->getMessage(), $e->getCode());
       }

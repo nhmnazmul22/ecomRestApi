@@ -22,7 +22,9 @@ class CategoryCreateRequest extends FormRequest
    public function rules(): array
    {
       return [
-         "name" => "required|string"
+         "name" => "required|string|max:255",
+         "status" => "sometimes|in:active,inactive",
+         "description" => "sometimes|string"
       ];
    }
 }
