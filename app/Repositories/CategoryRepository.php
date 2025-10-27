@@ -22,8 +22,4 @@ class CategoryRepository extends BaseRepository
       return $category;
    }
 
-   public function getModel()
-   {
-      return $this->model;
-   }
 }

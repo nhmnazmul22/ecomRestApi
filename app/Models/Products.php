@@ -17,24 +17,31 @@ class Products extends Model
     * @var list<string>
     */
    protected $fillable = [
+      "image_url",
       'title',
       "sku",
       "description",
+      "discount",
+      "stock",
       "price",
+      "tags",
       "category_id",
       "created_by",
    ];
 
 
-   public function category(){
-      return $this->belongsTo(Category::class, "category_id", "id");
+   public function category()
+   {
+      return $this->belongsTo(Category::class);
    }
 
-   public function createdBy(){
+   public function createdBy()
+   {
       return $this->belongsTo(User::class, "created_by", "id");
    }
 
-   public function tags(){
+   public function tags()
+   {
       return $this->belongsToMany(Tag::class, "product_tag", "product_id", "tag_id");
    }
 }

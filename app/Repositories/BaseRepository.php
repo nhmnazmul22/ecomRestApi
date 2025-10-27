@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Interfaces\BaseRepoInterface;
 
@@ -13,16 +14,31 @@ class BaseRepository implements BaseRepoInterface
    {
       $this->model = $model;
    }
-   public function all($query = null)
+   public function all($filters = [], $relations = [])
    {
-      if (!$query) {
-         $query = $this->model->query();
+      // dd($relations);
+      $query = $this->model->with($relations);
+
+      if (isset($filters["status"])) {
+         $this->model->where("status", $filters["status"]);
       }
+
+      if (isset($filters["from"]) && isset($filters["to"])) {
+         $from = Carbon::parse($filters["from"])->startOfDay();
+         $to = Carbon::parse($filters["to"])->endOfDay();
+         $this->model->query()->whereBetween("created_at", [$from, $to]);
+      }
+
+      if (isset($filters["search"])) {
+         $search = $filters["search"];
+         $this->model->query()->whereAny(["name", "description"], "like", "%{$search}%");
+      }
+
       return $query->get();
    }
-   public function find(int $id, array $relations = [])
+   public function find(string $column, string|int $value, array $relations = [])
    {
-      return $this->model->with($relations)->findOrFail($id);
+      return $this->model->with($relations)->where($column, $value)->first();
    }
    public function create(array $data)
    {

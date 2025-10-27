@@ -15,7 +15,7 @@ class AuthServices
 
    public function register(array $data): User
    {
-      $exitsUser = $this->repository->findByEmail($data["email"]);
+      $exitsUser = $this->repository->find("email", $data["email"]);
       if ($exitsUser) {
          throw new Exception("User Already Exits", 400);
       }
@@ -26,7 +26,7 @@ class AuthServices
 
    public function login(string $email, string $password)
    {
-      $user = $this->repository->findByEmail($email);
+      $user = $this->repository->find("email", $email);
       $isValidPassword = Hash::check($password, $user->password);
       if (!$user || !$isValidPassword) {
          throw new Exception("Invalid credentials", 400);
@@ -53,13 +53,12 @@ class AuthServices
 
    public function getProfile()
    {
-      return $this->repository->find(auth()->id());
+      return $this->repository->find("id", auth()->id());
    }
 
    public function getUsersByRole(string $role)
    {
-      // $user = auth()->user();
-      return $this->repository->findByRole($role);
+      return $this->repository->find('role', $role);
 
    }
 }
