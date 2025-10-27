@@ -9,25 +9,25 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+   use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
+   /**
+    * Seed the application's database.
+    */
+   public function run(): void
+   {
       // User::factory(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test Admin',
-            'email' => 'admin@example.com',
-            "role" => "admin"
-        ]);
+      //   User::factory()->create([
+      //       'name' => 'Test Admin',
+      //       'email' => 'admin@example.com',
+      //       "role" => "admin"
+      //   ]);
 
       // Category::factory(10)->create();
 
       // $this->call(TagSeeder::class);
 
-      // $this->call(ProductSeeder::class);
-    }
+      $this->call(ProductSeeder::class);
+   }
 }

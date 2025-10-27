@@ -19,15 +19,6 @@ class ProductsFactory extends Factory
    public function definition(): array
    {
 
-      $categoryId = Category::query()->inRandomOrder()->first()?->id ?? Category::factory();
-      $createdById = User::query()->inRandomOrder()->first()?->id ?? User::factory();
-
-      // Debug the values
-      dd([
-         'category_id' => $categoryId,
-         'created_by' => $createdById,
-      ]);
-      
       return [
          'title' => $this->faker->words(3, true),
          "sku" => strtoupper($this->faker->unique()->bothify("SKU-????-####")),
