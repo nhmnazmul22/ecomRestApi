@@ -25,6 +25,10 @@ class ProductController extends Controller
             "status" => $request->query("status"),
             "from" => $request->query("from"),
             "to" => $request->query("to"),
+            "from_price" => $request->query("from_price"),
+            "to_price" => $request->query("to_price"),
+            "from_stock" => $request->query("from_stock"),
+            "to_stock" => $request->query("to_stock"),
             "search" => $request->query("search"),
          ];
          $products = $this->services->getProducts($filters);
