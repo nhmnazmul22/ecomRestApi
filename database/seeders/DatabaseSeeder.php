@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
       //       "role" => "admin"
       //   ]);
 
-      Category::factory(10)->create();
+      // Category::factory(10)->create();
 
       // $this->call(TagSeeder::class);
 
-      // $this->call(ProductSeeder::class);
+      $this->call(ProductSeeder::class);
    }
 }

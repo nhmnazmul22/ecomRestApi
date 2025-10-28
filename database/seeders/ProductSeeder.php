@@ -14,10 +14,11 @@ class ProductSeeder extends Seeder
    public function run(): void
    {
       Products::factory(50)->create();
+      $tags = Tag::all()->pluck('id')->toArray();
 
       foreach (Products::all() as $product) {
-        $tags = Tag::query()->inRandomOrder()->take(rand())->pluck("id");
-        $product->tags()->attach($tags);
+         $productTags = collect($tags)->shuffle()->take(5);
+         $product->tags()->attach($productTags);
       }
    }
 }

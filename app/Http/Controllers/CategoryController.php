@@ -30,7 +30,7 @@ class CategoryController extends Controller
             "search" => $request->query("search"),
          ];
          $categories = $this->services->getCategoriesList($filters);
-         return $this->success(CategoryResource::collection($categories), "Categories data fetch successful", 200);
+         return $this->success($categories, "Categories data fetch successful", 200);
       } catch (Exception $e) {
          return $this->error($e->getMessage(), $e->getCode());
       }
